@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="Frontend/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
+
+    <script>
+        obj= {
+            xhr: new XMLHttpRequest(),
+            loadd: function () {
+                this.xhr.onreadystatechange = this.return;
+                this.xhr.open("GET", "http://127.0.0.1:5000/home");
+                this.xhr.send();
+            },
+            return: function () {
+                if (obj.xhr.readyState == 4 && obj.xhr.status == 200) {
+                    alert(obj.xhr.responseText);
+                }
+
+            }
+        }
+
+    </script>
+</head>
+<body onload="obj.loadd()">
+<button class="ui button">
+    Follow
+</button>
+<button class="ui primary button">
+    Save
+</button>
+<button class="ui button">
+    Discard
+</button>
+</body>
+</html>
