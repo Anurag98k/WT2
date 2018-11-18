@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory
-
+from Project import app, db
+from Project.models import User
 app = Flask(__name__)
 
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('basic.html')
+    return render_template('index.html')
 
 
 @app.route('/Frontend/<path:path>')
