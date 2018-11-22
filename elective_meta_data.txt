@@ -1,0 +1,24 @@
+7th Sem
+Algorithms for Information Retrival,1
+Advance Machine Learning,1
+Autonomous Mobile Robots,2
+Content Management,1
+Design Patterns,2
+Enterprise Resource Planning 1
+Information Security,2
+Social Network Analysis,2
+Web Services,2
+Computer System Performance Analysis,1 
+Computer Vision,2
+
+5th Sem
+Advance Database Management System,1
+Advance Algorithms,1
+Big Data,1
+Multimedia Computing,1
+Artificial Intelligence,2
+Computer Graphics and Visualization,2
+Data Analytics,2
+Fuzzy Logic,2
+
+

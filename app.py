@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory
 from Project import app, db
-from Project.models import User
+#from Project.models import User
 app = Flask(__name__)
 
 
@@ -17,10 +17,13 @@ def send_fe(path):
     return send_from_directory('Frontend', path)
 
 
-@app.route('/home')
-def hello():
-    return "Hello World!"
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
+@app.route('/signup')
+def signup():
+    return render_template('register.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
