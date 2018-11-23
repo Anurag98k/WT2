@@ -11,7 +11,10 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
-	.hidden.menu {
+    .pageheight{
+        height: 80%;
+    }
+	.hidden {
       display: none;
     }
 
@@ -102,8 +105,43 @@
   <script src="../dist/components/visibility.js"></script>
   <script src="../dist/components/sidebar.js"></script>
   <script src="../dist/components/transition.js"></script>-->
-  <script>
-  </script>
+<script>
+    var sem = localStorage.getItem("sem");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("cardHolder").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("GET", "/fetchElectives.php?sem="+sem, true);
+    xhttp.send();
+    var selected = "";
+    function selectItem(value, index, array){
+      selected = selected+value;
+    }
+    function changeItems(text){
+      selected="";
+      text.forEach(selectItem);
+      xhttp.open("GET", "/fetchElectives.php?sem="+sem+"&interests="+selected, true);
+      xhttp.send();
+    }
+</script>
+<script>
+
+   $(document)
+    .ready(function() {
+
+      $('.ui.dropdown')
+        .dropdown({
+          action: 'activate',
+          onChange: function(text, value){
+            changeItems(text);
+          }
+        })
+      ;
+    })
+  ;
+</script>
 </head>
 <body>
 
@@ -127,55 +165,26 @@
     
     <p></p>
     <div class="ui internally celled grid">
-              <div class="ten wide column">
-                    <div class="ui centered card">
-                            <div class="content">
-                              <div class="header">Reccomend Me!</div>
-                              <div class="description">
-                                <p id="rectext">Enter your GPA:</p>
-                                <div class="ui action input" id="recinput">
-                                        <div class="ui middle aligned divided list">
-  <div class="item">
-    <div class="right floated content">
-      <div class="ui button">Add</div>
-    </div>
-    <div class="content">
-      Lena
-    </div>
-  </div>
-  <div class="item">
-    <div class="right floated content">
-      <div class="ui button">Add</div>
-    </div>
-    <div class="content">
-      Lindsay
-    </div>
-  </div>
-  <div class="item">
-    <div class="right floated content">
-      <div class="ui button">Add</div>
-    </div>
-    <div class="content">
-      Mark
-    </div>
-  </div>
-  <div class="item">
-    <div class="right floated content">
-      <div class="ui button">Add</div>
-    </div>
-    <div class="content">
-      Molly
-    </div>
-  </div>
-</div>
-                                        <button class="ui button" id="update">Update</button>
-                                      </div>
-                              </div>
-                            </div>
-                          </div>
-              </div>
-              <div class="three wide column" id="listitems">
-              </div>
+        <div class="ten wide column">
+            <div class="ui centered card">
+                <div class="content">
+                    <div class="header">Recommend Me!</div>
+                    <div class="description">
+                        <p id="rectext">Choose your interests:</p>
+                        <select name="interests" multiple="" class="ui fluid dropdown">
+                            <option value="">Interests</option>
+                          <option value="alg">Algorithms and Computing Models</option>
+                          <option value="ds">Data Science</option>
+                          <option value="sys">Systems and Core Computing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="three wide column"> 
+                <div class="ui link cards" id="cardHolder">
+                </div>
+            </div>
     </div>
 <p></p>
   <div class="ui inverted vertical footer segment">

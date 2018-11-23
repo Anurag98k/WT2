@@ -45,11 +45,11 @@ def home():
 def openlist():
     return render_template('list.html')
 
-#name- descripton
-#sem interest - all matching electives
-@app.route('/reccomend')
+
+@app.route('/recommend')
 def recc():
-    return render_template('reccme.html')
+    return render_template('recme.html')
+
 
 @app.route('/elective')
 def getElectiveInfo():
@@ -89,6 +89,10 @@ def getElectiveList():
 
 
 
+
+@app.route('/recommend_st2')
+def recc2():
+    return render_template('recme2.html')
 @app.route('/login', methods=['POST','GET'])
 def login():
 	if(request.method=='GET'):
