@@ -11,8 +11,15 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
+  .logo{
+    width: auto;
+    height: 100%;
+    padding-right: 4%;
+    padding-top: 1%;
+    vertical-align: middle
+  }
   .pageheight{
-      height: 60vh;
+      min-height: 60vh;
   }
 	.hidden.menu {
       display: none;
@@ -114,14 +121,14 @@
     <div class="ui inverted top vertical center aligned segment">
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-          <img src="#" style="padding-right: 4%">
+          <img src="/Frontend/pes_logo.png" class="logo">
           <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
           <div style="width: 2%"></div>
           <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
           
           <div class="right item">
             <a href="/profile.html">
-                <img class="ui avatar image" src="#">
+                <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
                 <span id="username"></span>
             </a>
           </div>
@@ -132,32 +139,32 @@
     
     <p></p>
     <div class="ui main container pageheight">
-            <div class="ui link cards" id="cardHolder">
-                      <div class="card">
-                        <div class="image">
-                          <img src="#">
-                        </div>
-                        <div class="content">
-                          <a class="header">AML</a>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="image">
-                          <img src="#">
-                        </div>
-                        <div class="content">
-                          <a class="header">WT2</a>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="image">
-                          <img src="#">
-                        </div>
-                        <div class="content">
-                          <a class="header">AI</a>
-                        </div>
-                      </div>
-                      </div>
+      <div class="ui link four stackable cards" id="cardHolder">
+        <div class="card">
+          <a class="image" href="/electiveDesc" onclick="localStorage.setItem('elective','Drone Computing');">
+            <img src="/Frontend/subject.jpg">
+          </a>
+          <div class="content">
+            <a class="center aligned header" href="#">AML</a>
+          </div>
+        </div>
+        <div class="card">
+          <a class="image" href="/electiveDesc" onclick="localStorage.setItem('elective','Drone Computing');">
+            <img src="/Frontend/subject.jpg">
+          </a>
+          <div class="content">
+            <a class="center aligned header" href="#">WT2</a>
+          </div>
+        </div>
+        <div class="card">
+          <a class="image" href="/electiveDesc" onclick="localStorage.setItem('elective','Drone Computing');">
+            <img src="/Frontend/subject.jpg">
+          </a>
+          <div class="content">
+            <a class="center aligned header" href="#">AI</a>
+          </div>
+        </div>
+      </div>
     </div>
 <p></p>
   <div class="ui inverted vertical footer segment">
@@ -201,7 +208,7 @@
     var xhttp = new XMLHttpRequest();
     var internalHTML = "";
     function addCard(value, index, array){
-      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
+      internalHTML = internalHTML + "\n<div class='card'>\n<a class='image' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">\n<img src='/Frontend/subject.jpg'>\n</a>\n<div class='content'><a class='header' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">"+value+"</a>\n</div>\n</div>"
     }
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
