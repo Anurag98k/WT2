@@ -28,6 +28,15 @@
       $('.ui.form')
         .form({
           fields: {
+            userName: {
+              identifier  : 'userName',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your Username'
+                }
+              ]
+            },
             email: {
               identifier  : 'email',
               rules: [
@@ -71,7 +80,39 @@
         });
         $('.ui.dropdown').dropdown();
 
+        $("#signupForm").submit(function(e) {
+          if($('.ui.form').form('is valid'))
+          {
+          var form = $(this);
+          var url = form.attr('action');
+          $.ajax({
+                 type: "POST",
+                 url: url,
+                 data: form.serialize(), 
+                 success: function(data)
+                 {
+                    if(data.description=="3"){
+                        $('#message').html("Email already exists");
+                        $('#messageDiv').removeClass("hidden");
+                    }
+                    if(data.description=="2"){
+                        $('#message').html("Username already exists");
+                        $('#messageDiv').removeClass("hidden");
+                    }
+                    if(data.description=="1"){
+                        $('#message').html("The user is already logged in");
+                        $('#messageDiv').removeClass("hidden");
+                    }
+                    if(data.description=="4"){
+                          window.location = data.url
+                    }
+                 }
+              });
+            e.preventDefault(); 
+          }
+          });
     });
+
   </script>
 </head>
 <body>
@@ -82,9 +123,15 @@
         Sign up
       </div>
     </h2>
-    <form class="ui form" >
+    <form class="ui form" method="post" action="http://127.0.0.1:5000/signup" id="signupForm">
       <div class="ui stacked segment">
           <div ><i class="massive red user circle icon" style="margin-bottom: 5%"></i>
+        <div class="field">
+          <div class="ui left icon input">
+          <i class="user icon"></i>
+          <input type="text" name="userName" placeholder="User Name">
+          </div>
+        </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
@@ -100,7 +147,7 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="confirm_password" placeholder="Confirm Password">
+            <input type="password" name="confirmPassword" placeholder="Confirm Password">
           </div>
         </div>
         <div class="field">
@@ -121,10 +168,14 @@
             </div>
           </div>
         </div>
-        <div class="ui fluid large submit button" style="color: #ffffff; background-color: #298f9b">Login</div>
+        <div class="ui fluid large submit button" style="color: #ffffff; background-color: #298f9b">Sign Up</div>
       </div> 
 
-      <div class="ui error message"></div>
+      <div class="ui error message" ></div>
+      <div class="ui negative hidden message" id="messageDiv">
+        <div class="header" id="message">
+        </div>
+      </div>
 
     </form>
   </div>
