@@ -50,7 +50,7 @@ def openlist():
 def rec():
     return render_template('recme.html')
 
-@app.route('/elective')
+@app.route('/electiveDesc')
 def desc():
     return render_template('description.html')
 
