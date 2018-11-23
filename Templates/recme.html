@@ -211,6 +211,7 @@
 
 <script>
     var sem = localStorage.getItem("sem");
+    if(sem == null) sem = "5";
     var username = localStorage.getItem("userName")
     var usernamespan = document.getElementById("username");
     usernamespan.innerHTML = username;
@@ -227,7 +228,7 @@
             internalHTML = "";
         }
     };
-    xhttp.open("GET", "/electiveList?sem="+sem, true);
+    xhttp.open("GET", "/electiveList?sem="+sem+"&interest=12345678", true);
     xhttp.send();
     var selected = "";
     function selectItem(value, index, array){

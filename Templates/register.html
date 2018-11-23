@@ -83,6 +83,11 @@
         $("#signupForm").submit(function(e) {
           if($('.ui.form').form('is valid'))
           {
+            var name = $('#name').val();
+            var sem = $('#sem').val();
+            console.log(name + ", " + sem);
+            localStorage.setItem("sem", sem);
+            localStorage.setItem("userName", name);
           var form = $(this);
           var url = form.attr('action');
           $.ajax({
@@ -129,7 +134,7 @@
         <div class="field">
           <div class="ui left icon input">
           <i class="user icon"></i>
-          <input type="text" name="userName" placeholder="User Name">
+          <input type="text" name="userName" placeholder="User Name" id="name">
           </div>
         </div>
         <div class="field">
@@ -154,7 +159,7 @@
           <div class="ui left icon input">
             <div class="ui selection dropdown fluid" style="padding-left: 3%">
               <i class=" book grey icon input"></i>
-              <input type="hidden" name="sem">
+              <input type="hidden" name="sem" id="sem">
               <i class="dropdown icon"></i>
               <div class="default text" style="margin-left: 1%">Semester</div>
               <div class="menu">
