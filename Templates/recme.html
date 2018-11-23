@@ -155,7 +155,7 @@
                     <div class="header">Recommend Me!</div>
                     <div class="description">
                         <p id="rectext">Choose your interests:</p>
-                        <select name="interests" multiple="" class="ui fluid dropdown">
+                        <select name="interests" multiple="" class="ui fluid dropdown" onchange="changeItems()" id="interests">
                             <option value="">Interests</option>
                           <option value="1">Algorithms</option>
                           <option value="2">Databases</option>
@@ -211,14 +211,14 @@
 
 <script>
     var sem = localStorage.getItem("sem");
-    if(sem == null) sem = "5";
+    if(sem == "") sem = "5";
     var username = localStorage.getItem("userName")
     var usernamespan = document.getElementById("username");
     usernamespan.innerHTML = username;
     var xhttp = new XMLHttpRequest();
     var internalHTML = "";
     function addCard(value, index, array){
-      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
+      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value.Course_name+"</a>\n</div>\n</div>"
     }
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -230,13 +230,10 @@
     };
     xhttp.open("GET", "/electiveList?sem="+sem+"&interest=12345678", true);
     xhttp.send();
-    var selected = "";
-    function selectItem(value, index, array){
-      selected = selected+value;
-    }
-    function changeItems(text){
-      selected="";
-      text.forEach(selectItem);
+    function changeItems(){
+      selected=$("#interests").val();
+      selected=selected.join()
+      selected=selected.replace(/,/g,"")
       xhttp.open("GET", "/electiveList?sem="+sem+"&interest="+selected, true);
       xhttp.send();
     }

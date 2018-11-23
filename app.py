@@ -82,14 +82,24 @@ def getElectiveList():
 	interests = request.args.get('interest')
 	interests_list=['0']
 	elective_list=[]
-	for i in interests:
-		interests_list.append(i)
-	for i in range(1,sh.nrows):
-		row=sh.row(i)
-		if(int(sem)-3>=int(row[0].value) and (str(int(row[6].value)) in interests_list)):
-			print(sem, int(row[0].value))
-			elective_list.append(row[1].value)
-	return str(elective_list)
+	if(len(sem)==1):
+		for i in interests:
+			interests_list.append(i)
+		for i in range(1,sh.nrows):
+			row=sh.row(i)
+			if(int(sem)-3>=int(row[0].value) and (str(int(row[6].value)) in interests_list)):
+				#elective_list.append(row[1].value)
+				elective = OrderedDict()
+				elective['Course_name']=row[1].value
+				elective_list.append(elective)
+		return jsonify(elective_list)
+	else:
+		for i in range(1,sh.nrows):
+			row=sh.row(i)
+			elective = OrderedDict()
+			elective['Course_name']=row[1].value
+			elective_list.append(elective)
+		return jsonify(elective_list)
 
 
 
