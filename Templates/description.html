@@ -11,10 +11,7 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
-    .pageheight{
-        height: 60vh;
-    }
-	.hidden {
+	.hidden.menu {
       display: none;
     }
 
@@ -105,50 +102,7 @@
   <script src="../dist/components/visibility.js"></script>
   <script src="../dist/components/sidebar.js"></script>
   <script src="../dist/components/transition.js"></script>-->
-<script>
-    var sem = localStorage.getItem("sem");
-    var xhttp = new XMLHttpRequest();
-    var internalHTML = "";
-    function addCard(value, index, array){
-      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
-    }
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var resp = JSON.parse(this.responseText)
-            resp.forEach(addCard);
-            document.getElementById("cardHolder").innerHTML = internalHTML;
-            internalHTML = "";
-        }
-    };
-    xhttp.open("GET", "/electiveList?sem="+sem, true);
-    xhttp.send();
-    var selected = "";
-    function selectItem(value, index, array){
-      selected = selected+value;
-    }
-    function changeItems(text){
-      selected="";
-      text.forEach(selectItem);
-      xhttp.open("GET", "/electiveList?sem="+sem+"&interest="+selected, true);
-      xhttp.send();
-    }
-</script>
-<script>
 
-   $(document)
-    .ready(function() {
-
-      $('.ui.dropdown')
-        .dropdown({
-          action: 'activate',
-          onChange: function(text, value){
-            changeItems(text);
-          }
-        })
-      ;
-    })
-  ;
-</script>
 </head>
 <body>
 
@@ -171,34 +125,8 @@
 
     
     <p></p>
-    <div class="ui internally celled grid pageheight">
-        <div class="ten wide column">
-            <div class="ui centered card">
-                <div class="content">
-                    <div class="header">Recommend Me!</div>
-                    <div class="description">
-                        <p id="rectext">Choose your interests:</p>
-                        <select name="interests" multiple="" class="ui fluid dropdown">
-                            <option value="">Interests</option>
-                          <option value="1">Algorithms</option>
-                          <option value="2">Databases</option>
-                          <option value="3">Data Science</option>
-                          <option value="4">Discrete Mathematics</option>
-                          <option value="5">Computer Networks</option>
-                          <option value="6">Architecture</option>
-                          <option value="7">Machine Learning</option>
-                          <option value="8">Web Technologies</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="three wide column"> 
-                <div class="ui link cards" id="cardHolder">
-                </div>
-            </div>
+    <div class="ui main container" id="mainPage">
     </div>
-  </div>
 <p></p>
   <div class="ui inverted vertical footer segment">
     <div class="ui container">
@@ -231,3 +159,24 @@
 </div>
 
 </body>
+<script>
+    var elective = localStorage.getItem("elective");
+    var xhttp = new XMLHttpRequest();
+    localStorage.removeItem("elective");
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var resp = JSON.parse(this.responseText);
+        var internalHTML = "<h1 class='ui header'>"+resp.Course_name+"<div class='sub header'>Elective "+resp.Elective_no+"</div></h1>\n<h2 class='ui header'>Teachers: "+resp.Teacher+"</h2>\n<p>"+resp.Description+"</p>\n<h3>Specializations: </h3>"+resp.Specialization+"\n<h3>Prerequisites: </h3>"+resp.Prerequisites+"\n";
+        var mainPage = document.getElementById("mainPage");
+        mainPage.innerHTML = internalHTML;
+      }
+    };
+    if(elective == null){
+        var mainPage = document.getElementById("mainPage");
+        mainPage.innerHTML = "<h3>Error! Please select an elective!</h3>";
+    }
+    else{
+        xhttp.open("GET", "/elective?name="+elective, true);
+        xhttp.send();
+    }
+</script>

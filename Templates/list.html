@@ -11,6 +11,9 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
+  .pageheight{
+      height: 60vh;
+  }
 	.hidden.menu {
       display: none;
     }
@@ -105,12 +108,19 @@
 <script>
   var sem = localStorage.getItem("sem");
   var xhttp = new XMLHttpRequest();
+  var internalHTML = "";
+  function addCard(value, index, array){
+    internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
+  }
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-       document.getElementById("cardHolder").innerHTML = xhttp.responseText;
+      var resp = JSON.parse(this.responseText)
+      resp.forEach(addCard);
+      document.getElementById("cardHolder").innerHTML = internalHTML;
+      internalHTML = "";
     }
   };
-  xhttp.open("GET", "/fetchElectives.php?sem="+sem, true);
+  xhttp.open("GET", "/electiveList?sem="+sem, true);
   xhttp.send();
 </script>
 </head>
@@ -135,7 +145,7 @@
 
     
     <p></p>
-    <div class="ui main container">
+    <div class="ui main container pageheight">
             <div class="ui link cards" id="cardHolder">
                       <div class="card">
                         <div class="image">

@@ -47,8 +47,12 @@ def openlist():
 
 
 @app.route('/recommend')
-def recc():
+def rec():
     return render_template('recme.html')
+
+@app.route('/elective')
+def desc():
+    return render_template('description.html')
 
 
 @app.route('/elective')
