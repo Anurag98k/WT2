@@ -26,10 +26,13 @@ def hello():
 def openlist():
     return render_template('list.html')
 
-@app.route('/reccomend')
+@app.route('/recommend')
 def recc():
-    return render_template('reccme.html')
+    return render_template('recme.html')
 
+@app.route('/recommend_st2')
+def recc2():
+    return render_template('recme2.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
