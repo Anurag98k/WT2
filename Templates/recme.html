@@ -225,7 +225,7 @@
     var xhttp = new XMLHttpRequest();
     var internalHTML = "";
     function addCard(value, index, array){
-      internalHTML = internalHTML + "\n<div class='card'>\n<a class='image' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">\n<img src='/Frontend/subject.jpg'>\n</a>\n<div class='content'><a class='header' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">"+value+"</a>\n</div>\n</div>"
+      internalHTML = internalHTML + "\n<div class='card'>\n<a class='image' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value.Course_name+"');\">\n<img src='/Frontend/subject.jpg'>\n</a>\n<div class='content'><a class='header' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value.Course_name+"');\">"+value.Course_name+"</a>\n</div>\n</div>"
     }
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
