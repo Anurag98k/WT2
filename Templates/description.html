@@ -112,12 +112,15 @@
   
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-          <img src="#">
+                <img src="#" style="padding-right: 4%">
+                <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
+                <div style="width: 2%"></div>
+                <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
+                
+          <button class="ui button">Follow</button>
           <div class="right item">
-            <a href="/profile.html">
-                <img class="ui avatar image" src="#">
-                <span>Username</span>
-            </a>
+            <img class="ui avatar image" src="#">
+            <span id="username"></span>
           </div>
         </div>
       </div>
@@ -161,6 +164,9 @@
 </body>
 <script>
     var elective = localStorage.getItem("elective");
+    var username = localStorage.getItem("userName")
+    var usernamespan = document.getElementById("username");
+    usernamespan.innerHTML = username;
     var xhttp = new XMLHttpRequest();
     localStorage.removeItem("elective");
     xhttp.onreadystatechange = function() {

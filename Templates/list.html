@@ -105,38 +105,24 @@
   <script src="../dist/components/visibility.js"></script>
   <script src="../dist/components/sidebar.js"></script>
   <script src="../dist/components/transition.js"></script>-->
-<script>
-  var sem = localStorage.getItem("sem");
-  var xhttp = new XMLHttpRequest();
-  var internalHTML = "";
-  function addCard(value, index, array){
-    internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
-  }
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var resp = JSON.parse(this.responseText)
-      resp.forEach(addCard);
-      document.getElementById("cardHolder").innerHTML = internalHTML;
-      internalHTML = "";
-    }
-  };
-  xhttp.open("GET", "/electiveList?sem="+sem, true);
-  xhttp.send();
-</script>
+
 </head>
 <body>
 
 <!-- Page Contents -->
 <div class="pusher">
     <div class="ui inverted top vertical center aligned segment">
-  
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-          <img src="#">
+          <img src="#" style="padding-right: 4%">
+          <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
+          <div style="width: 2%"></div>
+          <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
+          
           <div class="right item">
             <a href="/profile.html">
                 <img class="ui avatar image" src="#">
-                <span>Username</span>
+                <span id="username"></span>
             </a>
           </div>
         </div>
@@ -205,3 +191,25 @@
 </div>
 
 </body>
+
+<script>
+    var sem = localStorage.getItem("sem");
+    var username = localStorage.getItem("userName")
+    var usernamespan = document.getElementById("username");
+    usernamespan.innerHTML = username;
+    var xhttp = new XMLHttpRequest();
+    var internalHTML = "";
+    function addCard(value, index, array){
+      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value+"</a>\n</div>\n</div>"
+    }
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var resp = JSON.parse(this.responseText)
+        resp.forEach(addCard);
+        document.getElementById("cardHolder").innerHTML = internalHTML;
+        internalHTML = "";
+      }
+    };
+    xhttp.open("GET", "/electiveList?sem="+sem, true);
+    xhttp.send();
+  </script>
