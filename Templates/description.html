@@ -11,6 +11,16 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
+  .logo{
+    width: auto;
+    height: 100%;
+    padding-right: 4%;
+    padding-top: 1%;
+    vertical-align: middle
+  }
+  .pageheight{
+        min-height: 60vh;
+    }
 	.hidden.menu {
       display: none;
     }
@@ -112,14 +122,13 @@
   
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-                <img src="#" style="padding-right: 4%">
+          <img src="/Frontend/pes_logo.png" class="logo">
                 <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
                 <div style="width: 2%"></div>
                 <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
                 
-          <button class="ui button">Follow</button>
           <div class="right item">
-            <img class="ui avatar image" src="#">
+            <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
             <span id="username"></span>
           </div>
         </div>
@@ -128,7 +137,7 @@
 
     
     <p></p>
-    <div class="ui main container" id="mainPage">
+    <div class="ui main container pageheight" id="mainPage">
     </div>
 <p></p>
   <div class="ui inverted vertical footer segment">

@@ -11,8 +11,15 @@
     <link rel="stylesheet" type="text/css" href="Frontend/Semantic-UI-CSS-master/semantic.min.css">
 
 <style type="text/css">
+  .logo{
+    width: auto;
+    height: 100%;
+    padding-right: 4%;
+    padding-top: 1%;
+    vertical-align: middle
+  }
     .pageheight{
-        height: 60vh;
+        min-height: 60vh;
     }
 	.hidden {
       display: none;
@@ -131,14 +138,14 @@
   
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-            <img src="#" style="padding-right: 4%">
+          <img src="/Frontend/pes_logo.png" class="logo">
             <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
             <div style="width: 2%"></div>
             <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
             
           <div class="right item">
             <a href="/profile.html">
-                <img class="ui avatar image" src="#">
+                <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
                 <span id="username"></span>
             </a>
           </div>
@@ -162,7 +169,7 @@
                           <option value="3">Data Science</option>
                           <option value="4">Discrete Mathematics</option>
                           <option value="5">Computer Networks</option>
-                          <option value="6">Architecture</option>
+                          <option value="6">Computer Architecture</option>
                           <option value="7">Machine Learning</option>
                           <option value="8">Web Technologies</option>
                         </select>
@@ -218,7 +225,7 @@
     var xhttp = new XMLHttpRequest();
     var internalHTML = "";
     function addCard(value, index, array){
-      internalHTML = internalHTML + "\n<div class='card'>\n<div class='image'>\n<img src='#'>\n</div>\n<div class='content'><a class='header'>"+value.Course_name+"</a>\n</div>\n</div>"
+      internalHTML = internalHTML + "\n<div class='card'>\n<a class='image' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">\n<img src='/Frontend/subject.jpg'>\n</a>\n<div class='content'><a class='header' href='/electiveDesc' onclick=\"localStorage.setItem('elective','"+value+"');\">"+value+"</a>\n</div>\n</div>"
     }
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
