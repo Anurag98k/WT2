@@ -7,6 +7,9 @@ from flask_restful import Api
 from Project.config import Config
 from flask_migrate import Migrate
 from flask import jsonify
+import xlrd
+from collections import OrderedDict
+import simplejson as json
 
 
 app = Flask(__name__)
@@ -42,9 +45,49 @@ def home():
 def openlist():
     return render_template('list.html')
 
+#name- descripton
+#sem interest - all matching electives
 @app.route('/reccomend')
 def recc():
     return render_template('reccme.html')
+
+@app.route('/elective')
+def getElectiveInfo():
+	wb = xlrd.open_workbook('elective_datasheet.xlsx')
+	sh = wb.sheet_by_index(0)
+	electiveName=request.args.get('name')
+	rownum=-1
+	for i in range(1, sh.nrows):
+		row=sh.row(i)
+		if (row[1].value==electiveName):
+			rownum=i
+	elective = OrderedDict()
+	row_values = sh.row_values(rownum)
+	elective['Elective_no'] = row_values[0]
+	elective['Course_name'] = row_values[1]
+	elective['Description'] = row_values[2]
+	elective['Teacher'] = row_values[3]
+	elective['Specialization']= row_values[4]
+	return json.dumps(elective)
+
+@app.route('/electiveList')
+def getElectiveList():
+	wb = xlrd.open_workbook('elective_datasheet.xlsx')
+	sh = wb.sheet_by_index(0)
+	sem=request.args.get('sem')
+	interests = request.args.get('interest')
+	interests_list=['0']
+	elective_list=[]
+	for i in interests:
+		interests_list.append(i)
+	for i in range(1,sh.nrows):
+		row=sh.row(i)
+		if(int(sem)-3>=int(row[0].value) and (str(int(row[6].value)) in interests_list)):
+			print(sem, int(row[0].value))
+			elective_list.append(row[1].value)
+	return str(elective_list)
+
+
 
 @app.route('/login', methods=['POST','GET'])
 def login():
