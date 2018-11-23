@@ -56,10 +56,35 @@
               ]
             }
           }
-        })
-      ;
-    })
-  ;
+        });
+        $("#loginForm").submit(function(e) {
+          if($('.ui.form').form('is valid'))
+          {
+          var form = $(this);
+          var url = form.attr('action');
+          $.ajax({
+                 type: "POST",
+                 url: url,
+                 data: form.serialize(), 
+                 success: function(data)
+                 {
+                    if(data.description=="2"){
+                        $('#message').html("Incorrect Password");
+                        $('#messageDiv').removeClass("hidden");
+                    }
+                    if(data.description=="1"){
+                        $('#message').html("Username does not exist");
+                        $('#messageDiv').removeClass("hidden");
+                    }
+                    if(data.description=="3"){
+						window.location = data.url
+                    }
+                 }
+              });
+            e.preventDefault(); 
+          }
+          });
+    });
   </script>
 </head>
 <body>
@@ -71,7 +96,7 @@
         Log-in to your account
       </div>
     </h2>
-    <form class="ui form" method="post" >
+    <form class="ui form" method="post" id="loginForm" action="http://127.0.0.1:5000/login">
       <div class="ui stacked segment">
           <div ><i class="massive red user circle icon" style="margin-bottom: 5%"></i>
         <div class="field">
@@ -96,6 +121,11 @@
     <div class="ui message">
       New to us? <a href="http://127.0.0.1:5000/signup">Sign Up</a>
     </div>
+        <div class="ui error message" ></div>
+      		<div class="ui hidden negative message" id="messageDiv">
+        	<div class="header" id="message">
+        </div>
+      </div>
   </div>
 </div>
 
