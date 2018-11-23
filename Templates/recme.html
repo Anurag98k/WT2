@@ -115,8 +115,32 @@
     };
     xhttp.open("GET", "/fetchElectives.php?sem="+sem, true);
     xhttp.send();
+    var selected = "";
+    function selectItem(value, index, array){
+      selected = selected+value;
+    }
+    function changeItems(text){
+      selected="";
+      text.forEach(selectItem);
+      xhttp.open("GET", "/fetchElectives.php?sem="+sem+"&interests="+selected, true);
+      xhttp.send();
+    }
+</script>
+<script>
 
+   $(document)
+    .ready(function() {
 
+      $('.ui.dropdown')
+        .dropdown({
+          action: 'activate',
+          onChange: function(text, value){
+            changeItems(text);
+          }
+        })
+      ;
+    })
+  ;
 </script>
 </head>
 <body>
@@ -147,41 +171,12 @@
                     <div class="header">Recommend Me!</div>
                     <div class="description">
                         <p id="rectext">Choose your interests:</p>
-                        <div class="ui middle aligned divided list">
-                            <div class="item">
-                                <div class="right floated content">
-                                    <div class="ui button">Add</div>
-                                </div>
-                                <div class="content">
-                                    Lena
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="right floated content">
-                                    <div class="ui button">Add</div>
-                                </div>
-                                <div class="content">
-                                    Lindsay
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="right floated content">
-                                    <div class="ui button">Add</div>
-                                </div>
-                                <div class="content">
-                                    Mark
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="right floated content">
-                                    <div class="ui button">Add</div>
-                                </div>
-                                <div class="content">
-                                    Molly
-                                </div>
-                            </div>
-                            <button class="ui button" id="update" onclick="update()">Update</button>
-                        </div>
+                        <select name="interests" multiple="" class="ui fluid dropdown">
+                            <option value="">Interests</option>
+                          <option value="alg">Algorithms and Computing Models</option>
+                          <option value="ds">Data Science</option>
+                          <option value="sys">Systems and Core Computing</option>
+                        </select>
                     </div>
                 </div>
             </div>
