@@ -132,9 +132,9 @@ def login():
 		#login_user(user,remember=True)
 		next_page= None
 		if not next_page or url_parse(next_page).netloc != '' :
-			next_page = "http://127.0.0.1/home" #else default next page is home
+			next_page = "http://127.0.0.1/list.html" #else default next page is home
 		print("a")
-		return jsonify({"description" : "3", "url": url_for('index')}),200,headers
+		return jsonify({"description" : "3", "url": "/list"}),200,headers
 @app.route('/signup',methods=['POST','GET'])
 def signup():
 	if(request.method=='POST'):

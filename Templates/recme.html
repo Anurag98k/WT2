@@ -138,14 +138,16 @@
   
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-          <img src="/Frontend/pes_logo.png" class="logo">
+          <a href="/" class="logo"><img src="/Frontend/pes_logo.png"></a>
             <button class="ui button" onclick="window.location.href='/list'">View all Electives</button>
             <div style="width: 2%"></div>
             <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
             
           <div class="right item">
-            <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
+            <img class="ui avatar image" src="/Frontend/profilePicture.jpg" id="userimage">
             <span id="username"></span>
+            <div style="width: 2%"></div>
+            <button class="ui button" id="logout" onclick="localStorage.removeItem('userName');localStorage.removeItem('sem');window.location.href='/'">Sign Out</button>
           </div>
         </div>
       </div>
@@ -213,9 +215,14 @@
 
 <script>
     var sem = localStorage.getItem("sem");
-    if(sem == "") sem = "5";
+    if(sem == "") sem = "5678";
     var username = localStorage.getItem("userName")
     var usernamespan = document.getElementById("username");
+    if(username == null){
+      usernamespan.style="visibility: hidden";
+      document.getElementById('userimage').style="visibility: hidden";
+      document.getElementById('logout').style="visibility: hidden";
+    }
     usernamespan.innerHTML = username;
     var xhttp = new XMLHttpRequest();
     var internalHTML = "";
