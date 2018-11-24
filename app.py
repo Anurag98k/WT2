@@ -72,6 +72,7 @@ def getElectiveInfo():
 	elective['Description'] = row_values[2]
 	elective['Teacher'] = row_values[3]
 	elective['Specialization']= row_values[4]
+	elective['Prerequisites'] = row_values[5]
 	return json.dumps(elective)
 
 @app.route('/electiveList')
