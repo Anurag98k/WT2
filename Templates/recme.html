@@ -144,10 +144,8 @@
             <button class="ui button" onclick="window.location.href='/recommend'">Recommend Me</button>
             
           <div class="right item">
-            <a href="/profile.html">
-                <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
-                <span id="username"></span>
-            </a>
+            <img class="ui avatar image" src="/Frontend/profilePicture.jpg">
+            <span id="username"></span>
           </div>
         </div>
       </div>
@@ -156,7 +154,7 @@
     
     <p></p>
     <div class="ui internally celled grid pageheight">
-        <div class="ten wide column">
+        <div class="five wide column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="header">Recommend Me!</div>
@@ -177,8 +175,8 @@
                 </div>
             </div>
         </div>
-            <div class="three wide column"> 
-                <div class="ui link cards" id="cardHolder">
+            <div class="eleven wide column"> 
+                <div class="ui link four stackable cards" id="cardHolder">
                 </div>
             </div>
     </div>
@@ -241,6 +239,9 @@
       selected=$("#interests").val();
       selected=selected.join()
       selected=selected.replace(/,/g,"")
+      if(selected == ""){
+        selected = "12345678"
+      }
       xhttp.open("GET", "/electiveList?sem="+sem+"&interest="+selected, true);
       xhttp.send();
     }
